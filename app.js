@@ -166,7 +166,7 @@ const isDomainValid = (domain) => {
 };
 
 app.post("/auth/register", async (req, res) => {
-  const { name, email, password, confirmpassword } = req.body;
+  const { name, email, password, confirmpassword, role } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400).json({ message: "Preencha todos os campos" });
@@ -209,7 +209,7 @@ app.post("/auth/register", async (req, res) => {
     name,
     email,
     password: passwordHash,
-    role: "user",
+    role: role || "user", // Usa o valor do campo `role` do corpo da solicitação ou "user" como padrão
   };
 
   db.users.push(user);
